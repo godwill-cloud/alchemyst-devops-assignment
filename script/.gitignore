@@ -1,0 +1,13 @@
+
+
+
+```gitignore
+.terraform/
+*.tfstate
+*.tfstate.backup
+terraform.tfvars
+*.pem
+node_modules/
+__pycache__
+your_ip       = "102.90.100.157/32"
+key_pair_name = "alchemyst-key"
