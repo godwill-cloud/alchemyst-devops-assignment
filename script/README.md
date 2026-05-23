@@ -242,3 +242,25 @@ This removes all AWS resources — VMs, VPC, subnets, NAT Gateway, security grou
 **Assignment:** DevOps Internship — Alchemyst AI
 **Submitted to:** anuran@getalchemystai.com
 **CC:** saumitra@getalchemystai.com, khushi@getalchemystai.com
+## Troubleshooting & Known Limitations
+
+### KVM / Nested Virtualization Issue
+During deployment testing on AWS Free Tier (t3.micro/t3.small), 
+the iii worker runtime failed with:
+/dev/kvm does not exist. Ensure KVM is enabled in your kernel.
+
+**Root Cause:** The iii framework depends on nested virtualization 
+for worker sandbox execution. AWS Free Tier instances (t3.micro, 
+t3.small) do not expose /dev/kvm.
+
+**Solution for Production:** Use AWS instances that support nested 
+virtualization such as C8i, M8i, or R8i instance families with 
+nested virtualization explicitly enabled.
+
+**What was successfully deployed:**
+- VPC with public and private subnets
+- NAT Gateway and Internet Gateway
+- 3 EC2 instances (API Gateway, Bastion Host, Inference Worker)
+- iii engine running on port 3111
+- Security groups with proper network hygiene
+- Full Terraform IaC (16 resources)
